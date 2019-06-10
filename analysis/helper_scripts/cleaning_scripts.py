@@ -11,6 +11,11 @@ def get_year(s):
 	year = {timestamp: pd.to_datetime(timestamp).year for timestamp in s.unique()}
 	return(s.map(year))
 
+def get_timestamp(s):
+	"""Fast retrieval of timestamp connversion from string"""
+	timestamps = {timestamp: pd.to_datetime(timestamp) for timestamp in s.unique()}
+	return(s.map(timestamps))
+
 def get_date(s):
 	"""Fast retrieval of timestamp connversion from string"""
 	dates = {timestamp: pd.to_datetime(timestamp) for timestamp in s.unique()}
@@ -56,7 +61,7 @@ def clean_other_desc(x):
 	except:
 		return(x)
 
-def get_clean_other_desc(s): ##Fast lookup of above function
+def get_clean_other_desc(s):
 	"""Fast lookup of clean_other_desc function""" 
 	cleaned_pther_desc = {other_desc: clean_other_desc(other_desc) for other_desc in s.unique()}
 	return(s.map(cleaned_pther_desc))
