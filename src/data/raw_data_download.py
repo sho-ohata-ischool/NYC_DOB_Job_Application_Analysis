@@ -2,7 +2,7 @@ import requests
 import os
 
 def main():
-	## DOB data portal for DOB job permits 1/1/2001-Present 
+	## DOB data portal for DOB job applications filing 1/1/2001-Present 
 	## https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2/data
 	dob_job_csv_url = 'https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD'
 	r = requests.get(dob_job_csv_url)
@@ -11,6 +11,8 @@ def main():
 	with open(data_path, 'wb') as f:
 	    f.write(r.content)
 
+	## NYC data portal for DOB permit issuance
+	## https://data.cityofnewyork.us/Housing-Development/DOB-Permit-Issuance/ipu4-2q9a
 	dob_permits_csv_url = 'https://data.cityofnewyork.us/api/views/ipu4-2q9a/rows.csv?accessType=DOWNLOAD'
 	r = requests.get(dob_permits_csv_url)
 	data_path = os.path.join('..', 'data', 'raw', 'DOB_job_permits.csv')
