@@ -2,24 +2,30 @@ import pandas as pd
 import re
 from datetime import datetime
 
+def try_pd_timestamp(x):
+	try:
+		return(pd.to_datetime(x))
+	except:
+		return(pd.to_datetime('1900-01-01')) ## for filtering out erroneous ones
+
 def get_month(s):
 	"""Fast retrieval of months from timestamp"""
-	month = {timestamp: pd.to_datetime(timestamp).month for timestamp in s.unique()}
+	month = {timestamp: try_pd_timestamp(timestamp).month for timestamp in s.unique()}
 	return(s.map(month))
 
 def get_year(s):
 	"""Fast retrieval of year from timestamp"""
-	year = {timestamp: pd.to_datetime(timestamp).year for timestamp in s.unique()}
+	year = {timestamp: try_pd_timestamp(timestamp).year for timestamp in s.unique()}
 	return(s.map(year))
 
 def get_timestamp(s):
 	"""Fast retrieval of timestamp connversion from string"""
-	timestamps = {timestamp: pd.to_datetime(timestamp) for timestamp in s.unique()}
+	timestamps = {timestamp: try_pd_timestamp(timestamp) for timestamp in s.unique()}
 	return(s.map(timestamps))
 
 def get_date(s):
 	"""Fast retrieval of timestamp connversion from string"""
-	dates = {timestamp: pd.to_datetime(timestamp).date() for timestamp in s.unique()}
+	dates = {timestamp: try_pd_timestamp(timestamp).date() for timestamp in s.unique()}
 	return(s.map(dates))
 
 def clean_col_name(x):
